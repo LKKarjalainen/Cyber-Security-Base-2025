@@ -15,14 +15,19 @@ def homePageView(request):
 
 	if to_username and amount:
 		amount = Decimal(amount)
+		if amount < 0:
+			#Fix for A10.
+			return #redirect('home')
 		from_user = get_object_or_404(User, username=from_username)
 		to_user = get_object_or_404(User, username=to_username)
 
 		from_account = get_object_or_404(Account, user=from_user)
 		to_account = get_object_or_404(Account, user=to_user)
 
+
+		# Fix for A01.
 		""" if request.user != from_user:
-			return """ # This could maybe include an error 	screen. A10 vulnerability like this.
+			return redirect('home')"""
 		from_account.balance -= amount
 		to_account.balance += amount
 		from_account.save()
