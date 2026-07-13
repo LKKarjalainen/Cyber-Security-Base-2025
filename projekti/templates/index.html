@@ -23,7 +23,7 @@
 		
         <h2>Transfer money</h2>
 
-        <form action='transfer/' method="GET">
+        <form action="{% url 'home' %}" method="GET">
             <span>To:</span><br/>
             <select name="to">
 			{% for account in accounts %}
