@@ -11,6 +11,7 @@ def create_demo_accounts(apps, schema_editor):
         ('demo1', 'demo1pass', '1000.00'),
         ('demo2', 'demo2pass', '500.00'),
         ('demo3', 'demo3pass', '400.00'),
+        ('rich', 'richpass', '1333333333337.00'),
     ]
 
     for username, password, balance in demo_users:
