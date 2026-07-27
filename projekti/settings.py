@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-# VULNERABLE: Security Misconfiguration (A02)
+# VULNERABLE: Security Misconfiguration (A05)
 
 
 from pathlib import Path
@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-vsh3a%6w774e2^$-_5r^4#t1!gu2(6pzjxc8g@3s9vb2yq^&c+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# Fix for A02
+# Fix for A05
 #DEBUG = False
 #ALLOWED_HOSTS = ['*']
 DEBUG = True

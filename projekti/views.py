@@ -15,8 +15,8 @@ logger = logging.getLogger(__name__)
 # @login_required
 def homePageView(request):
 	# VULNERABLE: Broken Access Control (A01)
-	# VULNERABLE: Injection (A05)
-	# VULNERABLE: Authentication Failures (A07)
+	# VULNERABLE: Injection (A03)
+	# VULNERABLE: Identification and Authentication Failures (A07)
 	# VULNERABLE: Security Logging and Monitoring Failures (A09)
 	to_username = request.GET.get('to')
 	amount = request.GET.get('amount')
@@ -44,7 +44,7 @@ def homePageView(request):
 
 	search = request.GET.get('search')
 	if search:
-		# Fix for A05.
+		# Fix for A03.
 		""" query = "SELECT id, username FROM auth_user WHERE username LIKE %s;"
 		with connection.cursor() as cursor:
 			cursor.execute(query, [f"%{search}%"]) """
