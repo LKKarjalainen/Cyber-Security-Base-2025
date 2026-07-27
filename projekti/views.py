@@ -7,14 +7,17 @@ from django.contrib.sessions.backends.db import SessionStore
 from django.db import connection
 from decimal import Decimal
 from .models import Account
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Fix for A07
 # @login_required
 def homePageView(request):
 	# VULNERABLE: Broken Access Control (A01)
-	# VULNERABLE: Mishandling of Exceptional Conditions (A10)
 	# VULNERABLE: Injection (A05)
 	# VULNERABLE: Authentication Failures (A07)
+	# VULNERABLE: Security Logging and Monitoring Failures (A09)
 	to_username = request.GET.get('to')
 	amount = request.GET.get('amount')
 	from_username = request.GET.get('from', request.user.username)
@@ -55,8 +58,9 @@ def homePageView(request):
 	if to_username and amount:
 		amount = Decimal(amount)
 		if amount < 0:
-			# Fix for A10.
-			return #redirect('home')
+			# Fix for A09
+			# logger.warning(f"Negative transfer: user={request.user.username} requested negative amount={amount} from={from_username} to={to_username}")
+			return redirect('home')
 		from_user = get_object_or_404(User, username=from_username)
 		to_user = get_object_or_404(User, username=to_username)
 
@@ -71,6 +75,9 @@ def homePageView(request):
 		to_account.balance += amount
 		from_account.save()
 		to_account.save()
+
+		# Fix for A09
+		# logger.info(f"Transfer executed: user={request.user.username} moved amount={amount} from={from_username} to={to_username}")
 
 		return redirect('home')
 
